@@ -16,10 +16,6 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		response, err := http.Get("https://shop.foodandco.dk/api/WeeklyMenu?restaurantId=1234&languageCode=da-DK")
 
-		if err != nil {
-			fmt.Print(err.Error())
-			os.Exit(1)
-		}
 		responseData, err := io.ReadAll(response.Body)
 		if err != nil {
 			log.Fatal(err)
@@ -30,7 +26,7 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "Oops. An error while executing lunch-cli '%s'\n", err)
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }
